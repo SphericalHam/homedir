@@ -1,0 +1,54 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+# We need a regex for ipv6 addresses
+
+print "Give me an IPv6 address, you bum! Address: ";
+my $line = <>;
+chomp $line;
+print "Got this address: $line\n";
+
+# We'll stick a quick regex here to make sure its valid
+# and die if its not.  So, no need for any subsequent code to account for
+# an invalid address.  
+
+# First, we'll split on ::
+#
+my @halves = split /::/, $line;
+print "Halves are these: @halves\n";
+
+# Find how many chunks there were first - so we can pad it out in a single pass
+#
+my $num_chunks = 0;
+foreach (@halves) {
+	my @chunks = split /:/;
+	$num_chunks += @chunks;
+}
+print "This many chunks: $num_chunks\n";
+print "Need to generate " . (8 - $num_chunks) . " empty chunks\n";
+
+if (8 - $num_chunks != 0) {
+	$halves[2] = $halves[1];
+	$halves[1] = join(':', split(//, ("0" x (8 - $num_chunks))));
+}
+
+my @final_address;
+foreach (@halves) {
+	my @parts = split /:/;
+	print " Parts are these: @parts\n";
+	my $num_parts = @parts;
+	$num_chunks += $num_parts;
+	print " $num_parts parts in the half.\n";
+	foreach (@parts) {
+		my $hex = $_;
+		my $pad = "0" x (4 - length $hex);
+		$hex = $pad . $hex;
+		push @final_address, $hex;
+	}
+}
+print "\n";
+print "Final address contains: ";
+print join(':', split(/ /, "@final_address"));
+print "\n";
