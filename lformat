@@ -13,7 +13,7 @@ EOF
 }
 
 my $line = $ARGV[0];
-$line =~ /^$IPv6_re$/ or die "Address isn't valid";
+$line =~ /^$IPv6_re$/ or die "Address isn't valid\n";
 
 my @part = split /::/, $line;
 my $num_chunks = 0;
