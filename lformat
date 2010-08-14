@@ -20,7 +20,7 @@ foreach (@part) {
 # Add the proper number of chunks to the middle of the array
 # The single 0's will be fleshed out later.
 if (8 - $num_chunks != 0) {
-	$part[2] = $part[1];
+	$part[2] = $part[1] if @part == 2;
 	$part[1] = join(':', split(//, ("0" x (8 - $num_chunks))));
 }
 
