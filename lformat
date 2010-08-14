@@ -6,49 +6,39 @@ use strict;
 # We need a regex for ipv6 addresses
 
 print "Give me an IPv6 address, you bum! Address: ";
-my $line = <>;
+my $line = <STDIN>;
 chomp $line;
-print "Got this address: $line\n";
 
 # We'll stick a quick regex here to make sure its valid
 # and die if its not.  So, no need for any subsequent code to account for
 # an invalid address.  
 
-# First, we'll split on ::
-#
-my @halves = split /::/, $line;
-print "Halves are these: @halves\n";
-
-# Find how many chunks there were first - so we can pad it out in a single pass
-#
+my @part = split /::/, $line;
 my $num_chunks = 0;
-foreach (@halves) {
+foreach (@part) {
 	my @chunks = split /:/;
 	$num_chunks += @chunks;
 }
-print "This many chunks: $num_chunks\n";
-print "Need to generate " . (8 - $num_chunks) . " empty chunks\n";
 
+# Add the proper number of chunks to the middle of the array
+# The single 0's will be fleshed out later.
 if (8 - $num_chunks != 0) {
-	$halves[2] = $halves[1];
-	$halves[1] = join(':', split(//, ("0" x (8 - $num_chunks))));
+	$part[2] = $part[1];
+	$part[1] = join(':', split(//, ("0" x (8 - $num_chunks))));
 }
 
+# At this stage, we have an address with exactly 8 groups of 
+# 4 or less hex digits each.  The missing hex digits are always
+# the most significan 0's.  
 my @final_address;
-foreach (@halves) {
-	my @parts = split /:/;
-	print " Parts are these: @parts\n";
-	my $num_parts = @parts;
-	$num_chunks += $num_parts;
-	print " $num_parts parts in the half.\n";
-	foreach (@parts) {
-		my $hex = $_;
-		my $pad = "0" x (4 - length $hex);
-		$hex = $pad . $hex;
-		push @final_address, $hex;
+foreach (@part) {
+	my @chunks = split /:/;
+	foreach (@chunks) {
+		my $chunk = $_;
+		my $padding = "0" x (4 - length $chunk);
+		$chunk = $padding . $chunk;
+		push @final_address, $chunk;
 	}
 }
-print "\n";
-print "Final address contains: ";
 print join(':', split(/ /, "@final_address"));
 print "\n";
