@@ -4,10 +4,15 @@ use warnings;
 use strict;
 use Regexp::IPv6 qw($IPv6_re);
 
-print "Give me an IPv6 address, you bum! Address: ";
-my $line = <STDIN>;
-chomp $line;
+if (@ARGV != 1) {
+	print <<EOF
+Usage: $0 <address>
+EOF
+	; # This is needed to avoid compilation errors...for some reason.
+	die "\n";
+}
 
+my $line = $ARGV[0];
 $line =~ /^$IPv6_re$/ or die "Address isn't valid";
 
 my @part = split /::/, $line;
