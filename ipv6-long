@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 
 use warnings;
 use strict;
@@ -40,5 +40,5 @@ foreach (@part) {
 		push @final_address, $chunk;
 	}
 }
-print join(':', split(/ /, "@final_address"));
+print join(':', @final_address);
 print "\n";
