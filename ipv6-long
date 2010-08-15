@@ -11,17 +11,13 @@ EOF
 	; # This is needed to avoid compilation errors...for some reason.
 	die "\n";
 }
-
-# Check validity of address (which is the first argument)
 my $line = $ARGV[0];
 $line =~ /^$IPv6_re$/ or die "Address isn't valid\n";
-
 my @part = split /::/, $line;
-
-# Count number of chunks
 my $num_chunks = 0;
 foreach (@part) {
-	$num_chunks += tr/:// + 1; #number of chunks = number of colons + 1
+	my @chunks = split /:/;
+	$num_chunks += @chunks;
 }
 
 # Add the proper number of chunks to the middle of the array
