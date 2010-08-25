@@ -13,6 +13,6 @@ EOF
 my $line = $ARGV[0];
 $line = `./ipv6-long $line`;
 chomp $line;
-$line =~ s/://g;
+die "\n" unless $line =~ s/://g;
 $line = join('.', split(//, reverse $line));
 print "$line.ip6.arpa\n";
