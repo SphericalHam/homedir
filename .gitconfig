@@ -1,0 +1,9 @@
+[user]
+	name = Michael Sharp
+	email = mike@entropyonwheels.com
+[color]
+	ui = true
+[help]
+	autocorrect = 20
+[log]
+	date = local
