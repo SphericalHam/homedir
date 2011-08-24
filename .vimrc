@@ -12,6 +12,8 @@ set hlsearch
 set viminfo='20,\"500
 
 syntax on
+"SyntasticEnable
+let g:syntastic_enable_signs=1
 autocmd FileType h,c,cpp set tabstop=2 shiftwidth=2
 
 filetype plugin on
