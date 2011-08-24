@@ -1,0 +1,3 @@
+[submodule "src/syntastic"]
+	path = src/syntastic
+	url = git://github.com/scrooloose/syntastic.git
