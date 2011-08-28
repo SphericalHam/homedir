@@ -9,7 +9,7 @@ if (@ARGV != 1) {
 Usage: $0 <address>
 EOF
 	; # This is needed to avoid compilation errors...for some reason.
-	die "\n";
+	exit 1;
 }
 my $line = $ARGV[0];
 $line =~ /^$IPv6_re$/ or die "Address isn't valid\n";
