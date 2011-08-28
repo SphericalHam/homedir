@@ -1,0 +1,44 @@
+#!/usr/bin/env perl
+
+use warnings;
+use strict;
+use Regexp::IPv6 qw($IPv6_re);
+
+if (@ARGV != 1) {
+	print <<EOF
+Usage: $0 <address>
+EOF
+	; # This is needed to avoid compilation errors...for some reason.
+	exit 1;
+}
+my $line = $ARGV[0];
+$line =~ /^$IPv6_re$/ or die "Address isn't valid\n";
+my @part = split /::/, $line;
+my $num_chunks = 0;
+foreach (@part) {
+	my @chunks = split /:/;
+	$num_chunks += @chunks;
+}
+
+# Add the proper number of chunks to the middle of the array
+# The single 0's will be fleshed out later.
+if (8 - $num_chunks != 0) {
+	$part[2] = $part[1] if @part == 2;
+	$part[1] = join(':', split(//, ("0" x (8 - $num_chunks))));
+}
+
+# At this stage, we have an address with exactly 8 groups of 
+# 4 or less hex digits each.  The missing hex digits are always
+# the most significan 0's.  
+my @final_address;
+foreach (@part) {
+	my @chunks = split /:/;
+	foreach (@chunks) {
+		my $chunk = $_;
+		my $padding = "0" x (4 - length $chunk);
+		$chunk = $padding . $chunk;
+		push @final_address, $chunk;
+	}
+}
+print join(':', @final_address);
+print "\n";
