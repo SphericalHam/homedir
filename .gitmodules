@@ -1,3 +1,6 @@
 [submodule "src/syntastic"]
 	path = src/syntastic
 	url = git://github.com/scrooloose/syntastic.git
+[submodule "src/switchscreen"]
+	path = src/switchscreen
+	url = git://github.com/p/switchscreen.git
