@@ -13,5 +13,5 @@ testme:
 all: binfiles
 
 binfiles: bin/*
-	mkdir -p ~/bin
-	cp $^ ~/bin
+	mkdir -p $(HOME)/bin
+	cp $^ $(HOME)/bin
