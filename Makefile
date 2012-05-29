@@ -11,7 +11,7 @@ testme:
 	echo $(HOME)
 	ls $(HOME)
 
-all: binfiles
+all: binfiles vimfiles
 
 binfiles: bin/*
 	mkdir -p $(HOME)/bin
@@ -20,7 +20,7 @@ binfiles: bin/*
 vimfiles: .vimrc .vim
 
 .vimrc:
-	cp $^ $(HOME)/$@
+	cp $@ $(HOME)
 
 .vim:
 	cp --dereference --recursive $@ $(HOME)
