@@ -1,9 +1,10 @@
 TARGETS                      =  known_hosts config
 REMOTE_TRUSTED_KNOWN_HOSTS   =
+REMOTE_TRUSTED_CONFIG_FILES  =
 
 all: $(TARGETS)
 
-config: $(wildcard config_*) config.default
+config: $(REMOTE_TRUSTED_CONFIG_FILES) $(filter-out $(REMOTE_TRUSTED_CONFIG_FILES), $(wildcard config_*)) config.default
 	@-chmod 600 $@
 	cat $^ > $@
 	@chmod 400 $@
