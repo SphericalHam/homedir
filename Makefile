@@ -24,3 +24,6 @@ vimfiles: .vimrc .vim
 
 .vim:
 	cp --dereference --recursive $@ $(HOME)
+
+bashfiles: .bashrc .bash_*
+	cp $^ $(HOME)
