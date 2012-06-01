@@ -12,7 +12,7 @@ testme:
 	echo $(HOME)
 	ls $(HOME)
 
-all: binfiles vimfiles bashfiles
+all: binfiles vimfiles bashfiles ssh
 
 binfiles: bin/*
 	mkdir -p $(HOME)/bin
@@ -28,3 +28,7 @@ vimfiles: .vimrc .vim
 
 bashfiles: .bashrc .bash_*
 	cp $^ $(HOME)
+
+ssh: .ssh
+	$(MAKE) -C $<
+	cp $</* $(HOME)/.ssh/
