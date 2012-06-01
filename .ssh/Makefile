@@ -21,9 +21,8 @@ clean:
 ###
 ### An illustrative example:
 #known_hosts_foo:
-#	scp trusteduser@bar:/path/to/trusted/ssh/known/hosts/file $@
+#	rsync -u trusteduser@bar:/path/to/trusted/ssh/known/hosts/file $@
 
 
 
 .PHONY: all
-.PHONY: $(REMOTE_TRUSTED_KNOWN_HOSTS)
