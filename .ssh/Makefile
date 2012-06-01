@@ -17,7 +17,7 @@ known_hosts: $(REMOTE_TRUSTED_KNOWN_HOSTS) $(filter-out $(REMOTE_TRUSTED_KNOWN_H
 	@chmod 400 $@
 
 clean:
-	-rm -f $(TARGETS) $(REMOTE_TRUSTED_KNOWN_HOSTS)
+	-rm -f $(TARGETS) $(REMOTE_TRUSTED_KNOWN_HOSTS) $(REMOTE_TRUSTED_CONFIG_FILES)
 
 ### Stick your methods for gathering remote trusted hosts here
 ### Be sure to have each one depend on 'fetchkh'
