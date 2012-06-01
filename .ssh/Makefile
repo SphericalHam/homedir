@@ -25,4 +25,5 @@ clean:
 
 
 
+.PHONY: all
 .PHONY: $(REMOTE_TRUSTED_KNOWN_HOSTS)
