@@ -3,6 +3,7 @@
 .PHONY: vimfiles .vimrc .vim
 .PHONY: testme
 .PHONY: bashfiles
+.PHONY: ssh
 
 FAKEHOME := "virtual_homedir"
 HOME     := $(HOME)/$(FAKEHOME)
@@ -24,11 +25,14 @@ vimfiles: .vimrc .vim
 	cp $@ $(HOME)
 
 .vim:
+	mkdir -p $(HOME)/$@
 	cp --dereference --recursive $@ $(HOME)
 
 bashfiles: .bashrc .bash_*
 	cp $^ $(HOME)
 
 ssh: .ssh
-	$(MAKE) -C $<
-	cp $</* $(HOME)/.ssh/
+	$(MAKE) -C $< clean
+	mkdir -p $(HOME)/$</
+	rsync -u $</* $(HOME)/$<
+	$(MAKE) -C $(HOME)/$<
