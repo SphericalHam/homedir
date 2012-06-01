@@ -2,6 +2,7 @@
 .PHONY: binfiles
 .PHONY: vimfiles .vimrc .vim
 .PHONY: testme
+.PHONY: bashfiles
 
 FAKEHOME := "virtual_homedir"
 HOME     := $(HOME)/$(FAKEHOME)
@@ -11,7 +12,7 @@ testme:
 	echo $(HOME)
 	ls $(HOME)
 
-all: binfiles vimfiles
+all: binfiles vimfiles bashfiles
 
 binfiles: bin/*
 	mkdir -p $(HOME)/bin
