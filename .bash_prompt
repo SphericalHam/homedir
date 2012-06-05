@@ -11,8 +11,16 @@ case $TERM in
             TITLEBAR=""
             ;;
 esac
+
+GITPS1=""
+__git_ps1 > /dev/null 2>&1 &&\
+GITPS1="$BLUE\$(__git_ps1 '[')\
+$LIGHT_RED\$(__git_ps1 '%s')\
+$BLUE\$(__git_ps1 ']')"
+
 PS1="${TITLEBAR}\
 $BLUE[$RED\$(date +%H%M)$BLUE]\
 $BLUE[$LIGHT_RED\u@\h:\w$BLUE]\
+$GITPS1\
 $WHITE\$$NO_COLOUR "
 

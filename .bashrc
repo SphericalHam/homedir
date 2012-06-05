@@ -35,27 +35,6 @@ fi
 export BROWSER="firefox"
 export EDITOR="vim"
 
-BLUE="\[\033[0;34m\]"
-RED="\[\033[0;31m\]"
-LIGHT_RED="\[\033[1;31m\]"
-WHITE="\[\033[1;37m\]"
-NO_COLOUR="\[\033[0m\]"
-case $TERM in
-    xterm*|rxvt*)
-            TITLEBAR='\[\033]0;\u@\h:\w\007\]'
-            ;;
-    *)
-            TITLEBAR=""
-            ;;
-esac
-PS1="${TITLEBAR}\
-$BLUE[$RED\$(date +%H%M)$BLUE]\
-$BLUE[$LIGHT_RED\u@\h:\w$BLUE]\
-$BLUE\$(__git_ps1 '[')\
-$LIGHT_RED\$(__git_ps1 '%s')\
-$BLUE\$(__git_ps1 ']')\
-$WHITE\$$NO_COLOUR "
-
 eval $(TERM=$TERM keychain --eval -q)
 
 if [ -f ~/.bash_prompt ]; then
