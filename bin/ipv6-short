@@ -1,0 +1,46 @@
+#!/usr/bin/env perl
+
+use warnings;
+use strict;
+use Regexp::IPv6 qw($IPv6_re);
+
+if (@ARGV != 1) {
+	print <<EOF
+Usage: $0 <address>
+Print the abbreivated form of <address>
+EOF
+	; # This is needed to avoid compilation errors...for some reason.
+	exit 1;
+}
+my $line = $ARGV[0];
+$line =~ /^$IPv6_re$/ or die "Address isn't valid\n";
+$line = `./ipv6-long $line`;
+chomp $line;
+
+my @address;
+my @chunks = split /:/, $line;
+foreach (@chunks) {
+	my $chunk = $_;
+	$chunk =~ s/^0+//;
+	push @address, $chunk;
+}
+my $final_address = join(':', @address);
+$final_address =~ s/::+/::/;
+
+# Now we just need to stick zeroes in the spaces
+#  if there's a second ::
+
+print "$final_address\n" and exit if $final_address =~/^$IPv6_re$/;
+
+# Now we just need to stick zeroes in the spaces
+#  if there's a second '::'
+my @parts = split /::/, $final_address, 2;
+@chunks = split /:/, $parts[1];
+my @really_final_address;
+foreach (@chunks) {
+	my $chunk = $_;
+	$chunk = "0" unless $chunk;
+	push @really_final_address, $chunk;
+}
+$parts[1] = join(':', @really_final_address);
+print "$parts[0]::$parts[1]\n";
