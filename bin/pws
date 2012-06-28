@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Generate a quick password from random characters
+echo $(</dev/urandom tr -dc A-Za-z0-9 | head -c10)
